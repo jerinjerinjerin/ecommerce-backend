@@ -2,4 +2,8 @@ function mul(a: number, b: number) {
   return a * b;
 }
 
-export { mul };
+function add(q: number, a: number, b: number) {
+  return q * a + b;
+}
+
+export { add, mul };
