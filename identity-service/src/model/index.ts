@@ -18,6 +18,8 @@ User.init(
     id: {
       type: DataTypes.UUID,
       allowNull: false,
+      primaryKey: true, // Mark id as the primary key
+      defaultValue: DataTypes.UUIDV4, // Automatically generate
     },
     username: {
       type: DataTypes.STRING,

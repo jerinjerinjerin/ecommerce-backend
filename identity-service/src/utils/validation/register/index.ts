@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const registerValidationSchem = Joi.object({
+const registerValidationSchema = Joi.object({
   username: Joi.string().trim().min(3).max(30).required().messages({
     "string.min": "Username must be at least 3 characters long",
     "string.max": "Username must not exceed 30 characters",
@@ -30,4 +30,4 @@ const registerValidationSchem = Joi.object({
     ),
 });
 
-export { registerValidationSchem };
+export { registerValidationSchema };
