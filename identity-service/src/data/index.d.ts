@@ -2,6 +2,12 @@ interface SignUpInput {
   username: string;
   email: string;
   password: string;
+  profileUrl?: string;
 }
 
-export { SignUpInput };
+interface LoginInput {
+  email: string;
+  password: string;
+}
+
+export { SignUpInput, LoginInput };

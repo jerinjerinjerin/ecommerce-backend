@@ -1,6 +1,7 @@
 import multer from "multer";
 import path from "path";
 import { Request, Express } from "express";
+import { logger } from "../logger";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -26,14 +27,14 @@ const fileFilter = (
   if (extname && mimetype) {
     cb(null, true);
   } else {
+    logger.warn("Only images are allowed (jpeg, jpg, png)");
     cb(new Error("Only images are allowed (jpeg, jpg, png)"));
   }
 };
 
-// Multer instance
 const upload = multer({
   storage,
-  limits: { fileSize: 2 * 1024 * 1024 }, // Limit: 2MB
+  limits: { fileSize: 2 * 1024 * 1024 },
   fileFilter,
 });
 

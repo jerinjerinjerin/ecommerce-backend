@@ -3,6 +3,7 @@ import { SignUpInput } from "../../data";
 import { registerValidationSchema } from "../../utils/validation/register";
 import { AppError } from "../../utils/AppError";
 import { signUpService } from "../../service/signup";
+import { logger } from "../../utils/logger";
 
 const registerResolver = {
   Query: {},
@@ -16,38 +17,29 @@ const registerResolver = {
       const { req } = context;
 
       try {
-        // Validate input
+        logger.info("Validating user input...");
         const { error } = registerValidationSchema.validate(input);
         if (error) {
           const messages = error.details.map((detail) => detail.message);
+          logger.warn(`Input validation failed: ${messages.join(", ")}`);
           throw new AppError(messages.join(", "), 400);
         }
 
-        // Handle profile image upload
-        let profileUrl = "";
-        if (req.file) {
-          profileUrl = req.file.path.replace(/\\/g, "/"); // Store the file path as `profileUrl`
-        } else {
-          throw new AppError("Profile image is required", 400);
-        }
+        logger.info("Attempting to create a new user...");
+        const newUser = await signUpService(input);
 
-        const newUser = await signUpService(input, profileUrl);
+        const userWithoutPassword = { ...newUser.user };
+        delete userWithoutPassword.password;
 
-        if (!newUser) {
-          throw new AppError("User not created, please try again later", 400);
-        }
-
-        // Return standardized response
-        return {
-          success: true,
-          message: "User registered successfully",
-          user: newUser,
-        };
+        logger.info("User created successfully: ", newUser);
+        console.log("new usr response", newUser, newUser.user, newUser.user.id);
+        return userWithoutPassword;
       } catch (error: unknown) {
+        logger.error("Error in registerUser resolver: ", error);
         if (error instanceof AppError) {
           throw error;
         } else {
-          throw new AppError("An unexpected error occurred", 500); // Handle unexpected errors
+          throw new AppError("An unexpected error occurred", 500);
         }
       }
     },

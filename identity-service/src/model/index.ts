@@ -11,6 +11,8 @@ export class User extends Model {
   public otp?: string;
   public otpExpiredAt?: Date;
   public createdAt!: Date;
+  public updatedAt!: Date;
+  public role!: string;
 }
 
 User.init(
@@ -18,8 +20,8 @@ User.init(
     id: {
       type: DataTypes.UUID,
       allowNull: false,
-      primaryKey: true, // Mark id as the primary key
-      defaultValue: DataTypes.UUIDV4, // Automatically generate
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     username: {
       type: DataTypes.STRING,
@@ -59,6 +61,16 @@ User.init(
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.ENUM("user", "admin"),
+      allowNull: false,
+      defaultValue: "user",
     },
   },
   {

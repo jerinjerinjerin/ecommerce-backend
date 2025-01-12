@@ -1,5 +1,6 @@
 import { gql } from "apollo-server-express";
-import { registerTypeDefs } from "../schema/signup";
+import { registerTypeDefs } from "../../schema/signup";
+import { loginTypeDefs } from "../../schema/login";
 
 const typeDefs = gql`
   type Query {
@@ -11,6 +12,7 @@ const typeDefs = gql`
   }
 
   ${registerTypeDefs}
+  ${loginTypeDefs}
 `;
 
 export { typeDefs };

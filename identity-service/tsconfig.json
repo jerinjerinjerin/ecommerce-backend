@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true, 
-    "forceConsistentCasingInFileNames": true
-  }
+    "outDir": "./dist",              // Output directory
+    "rootDir": "./src",              // Source directory
+    "strict": true,                  // Enable strict mode
+    "module": "commonjs",            // Module system for Node.js
+    "target": "es6",                 // ECMAScript target version
+    "esModuleInterop": true          // Import/export compatibility
+  },
+  "include": ["src/**/*"],           // Include all files in src
+  "exclude": ["node_modules"]        // Exclude dependencies
 }

@@ -8,7 +8,7 @@ const globalErrorHandler = (
   err: AppError,
   req: Request,
   res: Response,
-  next: NextFunction,
+  // next: NextFunction,
 ): void => {
   const { statusCode, message } = err;
 

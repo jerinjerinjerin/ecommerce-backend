@@ -1,6 +1,5 @@
 import { Dialect } from "sequelize";
 import { config } from "../connections/index.js";
-console.log("username", config.username);
 const configr = {
   development: {
     username: config.username,

@@ -15,7 +15,7 @@ const apiRateLimiter = rateLimit({
   }),
 
   windowMs: 60 * 1000,
-  max: 4,
+  max: 10,
   standardHeaders: true,
   legacyHeaders: false,
   message: "Too many requests, please try again later.",
